@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dayuebai.github.io</id>
     <title>Dayue&apos;s Blog</title>
-    <updated>2020-10-30T01:40:19.060Z</updated>
+    <updated>2020-11-01T20:02:03.850Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dayuebai.github.io"/>
     <link rel="self" href="https://dayuebai.github.io/atom.xml"/>
@@ -10,4 +10,18 @@
     <logo>https://dayuebai.github.io/images/avatar.png</logo>
     <icon>https://dayuebai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Dayue&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Notes on Mutual Exclusion]]></title>
+        <id>https://dayuebai.github.io/post/notes-on-mutual-exclusion/</id>
+        <link href="https://dayuebai.github.io/post/notes-on-mutual-exclusion/">
+        </link>
+        <updated>2020-11-01T05:59:04.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[About]]></title>
+        <id>https://dayuebai.github.io/post/about/</id>
+        <link href="https://dayuebai.github.io/post/about/">
+        </link>
+        <updated>2019-01-24T21:09:48.000Z</updated>
+    </entry>
 </feed>
