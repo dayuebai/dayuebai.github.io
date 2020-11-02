@@ -64,7 +64,7 @@ Input: s = &amp;quot;...">
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-11-01 · 5 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-10-31 · 5 min read</div>
           
             <a href="https://dayuebai.github.io/tag/lKZPNhWWQ/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
               <i class="ri-hashtag"></i>
@@ -146,10 +146,9 @@ Step 2 takes O(N) time check if a substring contains repeatable chracters with h
 </code></pre>
 <p>Analysis:<br>
 1. Time<br>
-There are N iterations in total (for loop). For each iteration, it loops at most 128 times because there are only 128 unique chracters in ascii table. Therefore the time complexity is O(N^2) =&gt; further reduced to O(N * 128)</p>
-<pre><code>2. Space
-    For each iteration, we keep track of characters that already appear in this iteration. We use an array to check (instead of hashtable, reason: array is cheap, hashtable is expensive). Overall, the space complexity is just the size of the tracking array =&gt; O(128)
-</code></pre>
+There are N iterations in total (for loop). For each iteration, it loops at most 128 times because there are only 128 unique chracters in ascii table. Therefore the time complexity is O(N^2) =&gt; further reduced to O(N * 128)<br>
+2. Space<br>
+For each iteration, we keep track of characters that already appear in this iteration. We use an array to check (instead of hashtable, reason: array is cheap, hashtable is expensive). Overall, the space complexity is just the size of the tracking array =&gt; O(128)</p>
 <h2 id="solution-3-hash-table-sliding-window">Solution 3 (Hash Table + Sliding Window)</h2>
 <p>To further optimize this algorithm, we should think about how we can get the final answer using only one scan of the string. Suppose we have a sliding window [i, j] such that there are no repeatable chracters in the window. Then, the final answer is the maximum possible size of this sliding window.</p>
 <p>How to maintain such a window?</p>

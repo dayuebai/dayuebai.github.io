@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dayuebai.github.io</id>
     <title>Dayue&apos;s Blog</title>
-    <updated>2020-11-02T06:45:46.083Z</updated>
+    <updated>2020-11-02T06:47:03.535Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dayuebai.github.io"/>
     <link rel="self" href="https://dayuebai.github.io/atom.xml"/>
@@ -11,11 +11,33 @@
     <icon>https://dayuebai.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Dayue&apos;s Blog</rights>
     <entry>
+        <title type="html"><![CDATA[A Probability Question (Solved on 11/01/2020)]]></title>
+        <id>https://dayuebai.github.io/post/probability-question/</id>
+        <link href="https://dayuebai.github.io/post/probability-question/">
+        </link>
+        <updated>2020-11-01T10:20:13.000Z</updated>
+        <content type="html"><![CDATA[<p>There are 15 apples in total. 4 apples go bad and the others are all fresh apples. Calculate the probability that: we picked the last bad apple at exactly the 9th pick.</p>
+<p>Solution:</p>
+<p>Assume that all of the apples are different.<br>
+Event Q: we picked the last bad apple at exactly the 9th pick.</p>
+<p>P(Q) = #(3 bad apples are picked within first 8 picks and the 9th pick is also a bad apple) / sample space</p>
+<p>sample space = #(possible order of 15 apples) = 15!</p>
+<p>P(Q) = C(8, 3) * P(4, 4) * P(11, 11) / 15! = 8 / 195</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Notes on Mutual Exclusion]]></title>
+        <id>https://dayuebai.github.io/post/notes-on-mutual-exclusion/</id>
+        <link href="https://dayuebai.github.io/post/notes-on-mutual-exclusion/">
+        </link>
+        <updated>2020-11-01T05:59:04.000Z</updated>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM]]]></title>
         <id>https://dayuebai.github.io/post/leetcode-3-longest-substring-without-repeatable-characters-medium/</id>
         <link href="https://dayuebai.github.io/post/leetcode-3-longest-substring-without-repeatable-characters-medium/">
         </link>
-        <updated>2020-11-01T16:07:12.000Z</updated>
+        <updated>2020-11-01T02:07:12.000Z</updated>
         <content type="html"><![CDATA[<pre><code>Given a string s, find the length of the longest substring without repeating characters.
 
 
@@ -79,10 +101,9 @@ Step 2 takes O(N) time check if a substring contains repeatable chracters with h
 </code></pre>
 <p>Analysis:<br>
 1. Time<br>
-There are N iterations in total (for loop). For each iteration, it loops at most 128 times because there are only 128 unique chracters in ascii table. Therefore the time complexity is O(N^2) =&gt; further reduced to O(N * 128)</p>
-<pre><code>2. Space
-    For each iteration, we keep track of characters that already appear in this iteration. We use an array to check (instead of hashtable, reason: array is cheap, hashtable is expensive). Overall, the space complexity is just the size of the tracking array =&gt; O(128)
-</code></pre>
+There are N iterations in total (for loop). For each iteration, it loops at most 128 times because there are only 128 unique chracters in ascii table. Therefore the time complexity is O(N^2) =&gt; further reduced to O(N * 128)<br>
+2. Space<br>
+For each iteration, we keep track of characters that already appear in this iteration. We use an array to check (instead of hashtable, reason: array is cheap, hashtable is expensive). Overall, the space complexity is just the size of the tracking array =&gt; O(128)</p>
 <h2 id="solution-3-hash-table-sliding-window">Solution 3 (Hash Table + Sliding Window)</h2>
 <p>To further optimize this algorithm, we should think about how we can get the final answer using only one scan of the string. Suppose we have a sliding window [i, j] such that there are no repeatable chracters in the window. Then, the final answer is the maximum possible size of this sliding window.</p>
 <p>How to maintain such a window?</p>
@@ -121,28 +142,6 @@ Let i = Math.max(i, last occurrence index of c + 1) // TODO: need further explan
 1. Time: O(N), reason: one time scan of the input array<br>
 2. Space: O(128), reason: use array of size 128 as a hash table.</p>
 ]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[A Probability Question (Solved on 11/01/2020)]]></title>
-        <id>https://dayuebai.github.io/post/probability-question/</id>
-        <link href="https://dayuebai.github.io/post/probability-question/">
-        </link>
-        <updated>2020-11-01T10:20:13.000Z</updated>
-        <content type="html"><![CDATA[<p>There are 15 apples in total. 4 apples go bad and the others are all fresh apples. Calculate the probability that: we picked the last bad apple at exactly the 9th pick.</p>
-<p>Solution:</p>
-<p>Assume that all of the apples are different.<br>
-Event Q: we picked the last bad apple at exactly the 9th pick.</p>
-<p>P(Q) = #(3 bad apples are picked within first 8 picks and the 9th pick is also a bad apple) / sample space</p>
-<p>sample space = #(possible order of 15 apples) = 15!</p>
-<p>P(Q) = C(8, 3) * P(4, 4) * P(11, 11) / 15! = 8 / 195</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Notes on Mutual Exclusion]]></title>
-        <id>https://dayuebai.github.io/post/notes-on-mutual-exclusion/</id>
-        <link href="https://dayuebai.github.io/post/notes-on-mutual-exclusion/">
-        </link>
-        <updated>2020-11-01T05:59:04.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[About]]></title>
