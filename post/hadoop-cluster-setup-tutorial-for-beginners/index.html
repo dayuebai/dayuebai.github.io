@@ -1,0 +1,576 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Hadoop Cluster Setup Tutorial (For Beginners) - Dayue&#39;s Blog</title>
+<link rel="shortcut icon" href="https://dayuebai.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://dayuebai.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://dayuebai.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Hadoop Cluster Setup Tutorial (For Beginners) - Dayue&#39;s Blog - Atom Feed" href="https://dayuebai.github.io/atom.xml">
+
+    
+
+  <meta name="description" content="Supported Platform
+
+
+GNU/Linux is supported as a development and production platform. Hadoop has been demonstrated on GN..." />
+  <meta property="og:title" content="Hadoop Cluster Setup Tutorial (For Beginners) - Dayue&#39;s Blog">
+  <meta property="og:description" content="Supported Platform
+
+
+GNU/Linux is supported as a development and production platform. Hadoop has been demonstrated on GN..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://dayuebai.github.io/post/hadoop-cluster-setup-tutorial-for-beginners/" />
+  <meta property="og:image" content="https://dayuebai.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Hadoop Cluster Setup Tutorial (For Beginners) - Dayue&#39;s Blog">
+  <meta name="twitter:description" content="Supported Platform
+
+
+GNU/Linux is supported as a development and production platform. Hadoop has been demonstrated on GN...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://dayuebai.github.io/post/hadoop-cluster-setup-tutorial-for-beginners/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://dayuebai.github.io/media/css/prism-atom-dark.css">
+  
+
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://dayuebai.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      Dayue&#39;s Blog
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Hadoop Cluster Setup Tutorial (For Beginners)
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-11-26 · 10 min read</div>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h2 id="supported-platform">Supported Platform</h2>
+<ul>
+<li>
+<p>GNU/Linux is supported as a development and production platform. Hadoop has been demonstrated on GNU/Linux clusters with 2000 nodes.</p>
+</li>
+<li>
+<p>Windows is also a supported platform, but this guide only demonstrates how to install Hadoop on Linux.</p>
+</li>
+</ul>
+<h2 id="required-software">Required Software</h2>
+<p>Required software for Linux include:</p>
+<ul>
+<li>
+<p><strong>Java</strong> must be installed (Java 7 is recommended for newer versions).</p>
+</li>
+<li>
+<p><strong>ssh</strong> must be installed and sshd must be running to use the Hadoop scripts that manage remote Hadoop daemons if the optional start and stop scripts are to be used.</p>
+</li>
+<li>
+<p><strong>pdsh</strong> is also recommended to be installed for better ssh resource management.</p>
+<ul>
+<li>run: <code>sudo yum install pdsh</code> on UIUC VM (OS: RHEL).</li>
+</ul>
+</li>
+</ul>
+<h2 id="download-hadoop">Download Hadoop</h2>
+<ul>
+<li>
+<p>Download Hadoop source package: <code>wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/hadoop-2.7.7.tar.gz</code></p>
+</li>
+<li>
+<p>Unpack the installed package: <code>tar -xvf hadoop-2.7.7.tar.gz</code></p>
+</li>
+<li>
+<p>Change directory: <code>cd hadoop-2.7.7/</code></p>
+</li>
+</ul>
+<h2 id="hadoop-cluster-configuration">Hadoop Cluster Configuration</h2>
+<ol>
+<li>Update <code>~/.bashrc</code> by adding the following lines:</li>
+</ol>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre
+export PATH=$PATH:$JAVA_HOME/bin
+export HADOOP_HOME=$HOME/hadoop-2.7.7
+export HADOOP_CONF_DIR=$HOME/hadoop-2.7.7/etc/hadoop
+export HADOOP_MAPRED_HOME=$HOME/hadoop-2.7.7
+export HADOOP_COMMON_HOME=$HOME/hadoop-2.7.7
+export HADOOP_HDFS_HOME=$HOME/hadoop-2.7.7
+export YARN_HOME=$HOME/hadoop-2.7.7
+export PATH=$PATH:$HOME/hadoop-2.7.7/bin
+export HADOOP_CLASSPATH=/usr/lib/jvm/java-openjdk/lib/tools.jar
+</code></pre>
+<p>Also update <code>JAVA_HOME</code> path in the file: <code>$HOME/hadoop-2.7.7/etc/hadoop/hadoop-env.sh</code> as follows.</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre
+export PATH=$PATH:$JAVA_HOME/bin
+</code></pre>
+<ol start="2">
+<li>
+<p>Run <code>source ~/.bashrc</code> command</p>
+</li>
+<li>
+<p>Copy the master node's ssh key to slave's authorized keys.</p>
+</li>
+</ol>
+<p><code>ssh-copy-id -i $HOME/.ssh/id_rsa.pub username@slave</code></p>
+<ol start="4">
+<li>
+<p>On the <strong>master</strong> node, create a file named <code>masters</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop</code></p>
+</li>
+<li>
+<p>Add master node's public IP address to the file just created.</p>
+</li>
+<li>
+<p>Add the IPs of all slaves to the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/slaves</code> on the <strong>master</strong> node only.</p>
+</li>
+<li>
+<p>Update <code>$HOME/hadoop-2.7.7/etc/hadoop/core-site.xml</code> on <strong>all</strong> nodes in the cluster with the following lines:</p>
+</li>
+</ol>
+<pre><code class="language-xml">&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;fs.default.name&lt;/name&gt;
+		&lt;value&gt;hdfs://&lt;MASTER_IP_ADDR&gt;:9000&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ol start="8">
+<li>Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the master node as follows:</li>
+</ol>
+<pre><code class="language-xml">&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.replication&lt;/name&gt;
+		&lt;value&gt;3&lt;/value&gt;
+	&lt;/property&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.permissions&lt;/name&gt;
+		&lt;value&gt;false&lt;/value&gt;
+	&lt;/property&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/namenode&lt;/value&gt;
+	&lt;/property&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/datanode&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ol start="9">
+<li>Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the slave node as follows:</li>
+</ol>
+<pre><code class="language-xml">&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.replication&lt;/name&gt;
+		&lt;value&gt;3&lt;/value&gt;
+	&lt;/property&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.permissions&lt;/name&gt;
+		&lt;value&gt;false&lt;/value&gt;
+	&lt;/property&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/datanode&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ol start="10">
+<li>For all nodes in the cluster, create a new file named <code>mapred-site.xml</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop/</code> and add the following lines to the file.</li>
+</ol>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+&lt;!--
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+--&gt;
+&lt;!-- Put site-specific property overrides in this file. --&gt;
+&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+		&lt;value&gt;yarn&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ol start="11">
+<li>For all nodes in the cluster, update the file: <code>$HOME/hadoop-2.7.7/etc/hadoop/yarn-site.xml</code> with the following lines.</li>
+</ol>
+<pre><code class="language-xml">&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+    &lt;value&gt;172.22.94.103:8032&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+    &lt;value&gt;172.22.94.103:8030&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+    &lt;value&gt;172.22.94.103:8031&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+    &lt;value&gt;172.22.94.103:8033&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+    &lt;value&gt;172.22.94.103:8088&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.auxservices.mapreduce.shuffle.class&lt;/name&gt;
+    &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+<ol start="12">
+<li>On the <strong>master</strong> master (only), format the namenode using the command: <code>hadoop namenode -format</code></li>
+</ol>
+<h2 id="quick-start-example">Quick Start Example</h2>
+<ol>
+<li>Create a file named: <code>WordCount.java</code> and copy the following code block to this new file. WordCount is a simple application that counts the number of occurrences of each word in a given input set.</li>
+</ol>
+<pre><code class="language-java">import java.io.IOException;
+import java.util.StringTokenizer;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+public class WordCount {
+
+  public static class TokenizerMapper
+       extends Mapper&lt;Object, Text, Text, IntWritable&gt;{
+
+    private final static IntWritable one = new IntWritable(1);
+    private Text word = new Text();
+
+    public void map(Object key, Text value, Context context
+                    ) throws IOException, InterruptedException {
+      StringTokenizer itr = new StringTokenizer(value.toString());
+      while (itr.hasMoreTokens()) {
+        word.set(itr.nextToken());
+        context.write(word, one);
+      }
+    }
+  }
+
+  public static class IntSumReducer
+       extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; {
+    private IntWritable result = new IntWritable();
+
+    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
+                       Context context
+                       ) throws IOException, InterruptedException {
+      int sum = 0;
+      for (IntWritable val : values) {
+        sum += val.get();
+      }
+      result.set(sum);
+      context.write(key, result);
+    }
+  }
+
+  public static void main(String[] args) throws Exception {
+    Configuration conf = new Configuration();
+    Job job = Job.getInstance(conf, &quot;word count&quot;);
+    job.setJarByClass(WordCount.class);
+    job.setMapperClass(TokenizerMapper.class);
+    job.setCombinerClass(IntSumReducer.class);
+    job.setReducerClass(IntSumReducer.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(IntWritable.class);
+    FileInputFormat.addInputPath(job, new Path(args[0]));
+    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+    System.exit(job.waitForCompletion(true) ? 0 : 1);
+  }
+}
+</code></pre>
+<ol start="2">
+<li>Compile WordCount.java and create a jar:</li>
+</ol>
+<pre><code>bin/hadoop com.sun.tools.javac.Main WordCount.java
+
+jar cf wc.jar WordCount*.class
+</code></pre>
+<ol start="3">
+<li>Add files: <code>file01</code> and <code>file02</code> under <strong>local</strong> directory: <code>wc-input</code>. Sample text-files as input:</li>
+</ol>
+<pre><code>hadoop fs -mkdir -p /wc/input
+hadoop fs -put wc-input/* /wc/input
+
+hadoop fs -ls /wc/input
+</code></pre>
+<ol start="4">
+<li>Run applications using MapReduce of Hadoop:</li>
+</ol>
+<pre><code>hadoop jar wc.jar wordcount /wc/input /wc/output
+hadoop fs -ls /wc/output
+hadoop fs -get /wc/output/part-r-00000 wc-output/output.txt
+</code></pre>
+<p>Results will be downloaded to the local file: <code>output.txt</code></p>
+<h2 id="faq">FAQ</h2>
+<ol>
+<li>What to do if you run <code>jps</code> on slave nodes and cannot find <code>DataNode</code> process running?</li>
+</ol>
+<ul>
+<li>Delete <code>datanode/</code> directory on slave nodes first</li>
+<li>Re-run format command: <code>hadoop namenode -format</code> on the master node</li>
+<li>Start the cluster again then you will see the <code>DataNode</code> process.</li>
+</ul>
+<ol start="2">
+<li>How to debug the cluster setting issue?</li>
+</ol>
+<ul>
+<li><strong>Always</strong> check log files.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://hadoop.apache.org/docs/stable/index.html">Hadoop Getting Started</a></li>
+<li><a href="https://hadoop.apache.org/docs/r2.9.2/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html">Hadoop MapReduce Tutorial</a></li>
+</ul>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#supported-platform">Supported Platform</a></li>
+<li><a href="#required-software">Required Software</a></li>
+<li><a href="#download-hadoop">Download Hadoop</a></li>
+<li><a href="#hadoop-cluster-configuration">Hadoop Cluster Configuration</a></li>
+<li><a href="#quick-start-example">Quick Start Example</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://dayuebai.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://dayuebai.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+  
+</body>
+
+</html>

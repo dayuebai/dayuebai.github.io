@@ -4,43 +4,31 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM] - Dayue&#39;s Blog</title>
+<title>Internship Search - Dayue&#39;s Blog</title>
 <link rel="shortcut icon" href="https://dayuebai.github.io/favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://dayuebai.github.io/media/css/tailwind.css">
 <link rel="stylesheet" href="https://dayuebai.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM] - Dayue&#39;s Blog - Atom Feed" href="https://dayuebai.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="Internship Search - Dayue&#39;s Blog - Atom Feed" href="https://dayuebai.github.io/atom.xml">
 
     
 
-  <meta name="description" content="Given a string s, find the length of the longest substring without repeating characters.
-
-
-Example 1:
-
-Input: s = &amp;quot;..." />
-  <meta property="og:title" content="Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM] - Dayue&#39;s Blog">
-  <meta property="og:description" content="Given a string s, find the length of the longest substring without repeating characters.
-
-
-Example 1:
-
-Input: s = &amp;quot;..." />
+  <meta name="description" content="...
+" />
+  <meta property="og:title" content="Internship Search - Dayue&#39;s Blog">
+  <meta property="og:description" content="...
+" />
   <meta property="og:type" content="articles">
-  <meta property="og:url" content="https://dayuebai.github.io/post/leetcode-3-longest-substring-without-repeatable-characters-medium/" />
+  <meta property="og:url" content="https://dayuebai.github.io/post/internship-search/" />
   <meta property="og:image" content="https://dayuebai.github.io/images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM] - Dayue&#39;s Blog">
-  <meta name="twitter:description" content="Given a string s, find the length of the longest substring without repeating characters.
-
-
-Example 1:
-
-Input: s = &amp;quot;...">
+  <meta name="twitter:title" content="Internship Search - Dayue&#39;s Blog">
+  <meta name="twitter:description" content="...
+">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://dayuebai.github.io/post/leetcode-3-longest-substring-without-repeatable-characters-medium/">
+  <link rel="canonical" href="https://dayuebai.github.io/post/internship-search/">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
@@ -60,133 +48,15 @@ Input: s = &amp;quot;...">
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          Leetcode 3. Longest Substring Without Repeatable Characters [MEDIUM]
+          Internship Search
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-10-31 · 5 min read</div>
-          
-            <a href="https://dayuebai.github.io/tag/lKZPNhWWQ/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
-              <i class="ri-hashtag"></i>
-              leetcode
-            </a>
-          
-            <a href="https://dayuebai.github.io/tag/DoWiJFcwPL/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
-              <i class="ri-hashtag"></i>
-              sliding window
-            </a>
-          
-            <a href="https://dayuebai.github.io/tag/KyC8W4P2cH/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
-              <i class="ri-hashtag"></i>
-              hash table
-            </a>
+          <div class="text-gray-400 text-sm mr-4">2020-11-01 · 0 min read</div>
           
         </div>
         <div class="markdown mb-8" v-pre>
-          <pre><code>Given a string s, find the length of the longest substring without repeating characters.
-
-
-Example 1:
-
-Input: s = &quot;abcabcbb&quot;
-Output: 3
-Explanation: The answer is &quot;abc&quot;, with the length of 3.
-Example 2:
-
-Input: s = &quot;bbbbb&quot;
-Output: 1
-Explanation: The answer is &quot;b&quot;, with the length of 1.
-Example 3:
-
-Input: s = &quot;pwwkew&quot;
-Output: 3
-Explanation: The answer is &quot;wke&quot;, with the length of 3.
-Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.
-Example 4:
-
-Input: s = &quot;&quot;
-Output: 0
- 
-
-Constraints:
-
-0 &lt;= s.length &lt;= 5 * 104
-s consists of English letters, digits, symbols and spaces.
-</code></pre>
-<h2 id="solution-1-brute-force">Solution 1 (Brute force)</h2>
-<p>To find longest substring without repeatable characters, the most naive solution is to<br>
-1. first enumerate all possbile substrings<br>
-2. check each substring if there exists repeatable characters in the substring.</p>
-<p>Step 1 takes O(N^2) time to enumerate all substrings.<br>
-Step 2 takes O(N) time check if a substring contains repeatable chracters with hashtable.</p>
-<p>Overall, this naive solution takes O(N^3) time.</p>
-<h2 id="solution-2-optimized-brute-force">Solution 2 (Optimized brute force)</h2>
-<p>We can optimize our solution based on solution 1. For each starting index i, find the maximum value of starting j such that there are no repeatable characters within the range [i, j); when we find the first repeatable characters, stop executing and increment i. In this way, for eaching starting index i, we don't have to iterate j to the last character of the string. Instead, we can stop iterating j when we first find repeatable chracters (further iteration is redundant).</p>
-<p>Java code:</p>
-<pre><code>Optimized brute force solution
-// Time: O(N^2)
-// Space: O(128)
-// class Solution {
-//     public int lengthOfLongestSubstring(String s) {
-//         int ans = 0;
-        
-//         for (int i = 0; i &lt; s.length(); i++) {
-//             char[] seen = new char[128];
-//             int j = i;
-//             while (j &lt; s.length() &amp;&amp; seen[s.charAt(j)] == 0) {
-//                 seen[s.charAt(j)] = 1;
-//                 j++;
-//             }
-//             ans = Math.max(ans, j - i);
-//         }
-        
-//         return ans;
-//     }
-// }
-</code></pre>
-<p>Analysis:<br>
-1. Time<br>
-There are N iterations in total (for loop). For each iteration, it loops at most 128 times because there are only 128 unique chracters in ascii table. Therefore the time complexity is O(N^2) =&gt; further reduced to O(N * 128)<br>
-2. Space<br>
-For each iteration, we keep track of characters that already appear in this iteration. We use an array to check (instead of hashtable, reason: array is cheap, hashtable is expensive). Overall, the space complexity is just the size of the tracking array =&gt; O(128)</p>
-<h2 id="solution-3-hash-table-sliding-window">Solution 3 (Hash Table + Sliding Window)</h2>
-<p>To further optimize this algorithm, we should think about how we can get the final answer using only one scan of the string. Suppose we have a sliding window [i, j] such that there are no repeatable chracters in the window. Then, the final answer is the maximum possible size of this sliding window.</p>
-<p>How to maintain such a window?</p>
-<ol>
-<li>We keep iterating the ending point (j) of this sliding window. j monotonically increases.</li>
-<li>Find the smallest possible value of i.</li>
-</ol>
-<p>Now, the key challenge is how to find the feasible i for each j?</p>
-<ol>
-<li>We use a hash table to store the last index of each character.</li>
-<li>For an endpoint j (stores character c), find the last index of c (i_c). i should be i_c + 1</li>
-</ol>
-<p>However, there might be a case shown as below:<br>
-<code>abba</code></p>
-<p>for j = 3 (zero based), it find the last index of <code>a</code> is 0, so it set i = 0 + 1 = 1. However, the window[1, 3] still contains repeatable chracters.</p>
-<p>How to solve this issue?<br>
-Let i = Math.max(i, last occurrence index of c + 1) // TODO: need further explanation</p>
-<p>Java code:</p>
-<pre><code>class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        int[] lastOccur = new int[128];
-        Arrays.fill(lastOccur, -1);
-        int ans = 0;
-        
-        for (int i = 0, j = 0; j &lt; s.length(); j++) {
-            i = Math.max(i, lastOccur[s.charAt(j)] + 1);
-            ans = Math.max(ans, j - i + 1);
-            lastOccur[s.charAt(j)] = j;
-        }
-        
-        return ans;
-    }
-}
-</code></pre>
-<p>Analysis:<br>
-1. Time: O(N), reason: one time scan of the input array<br>
-2. Space: O(128), reason: use array of size 128 as a hash table.</p>
-<p>This article is just a review of solutions posted by <a href="https://zxi.mytechroad.com/blog/string/leetcode-3-longest-substring-without-repeating-characters/">huahua</a> . Thanks!</p>
+          <p>...</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -227,16 +97,7 @@ Let i = Math.max(i, last occurrence index of c + 1) // TODO: need further explan
         </div>
       </div>
       <div class="post-toc-container">
-        <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#solution-1-brute-force">Solution 1 (Brute force)</a></li>
-<li><a href="#solution-2-optimized-brute-force">Solution 2 (Optimized brute force)</a></li>
-<li><a href="#solution-3-hash-table-sliding-window">Solution 3 (Hash Table + Sliding Window)</a></li>
-</ul>
-</li>
-</ul>
-
+        
       </div>
     </div>
 
