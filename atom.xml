@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dayuebai.github.io</id>
     <title>Dayue&apos;s Blog</title>
-    <updated>2020-11-28T01:52:46.231Z</updated>
+    <updated>2020-12-02T04:33:33.852Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dayuebai.github.io"/>
     <link rel="self" href="https://dayuebai.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://dayuebai.github.io/post/hadoop-cluster-setup-tutorial-for-beginners/</id>
         <link href="https://dayuebai.github.io/post/hadoop-cluster-setup-tutorial-for-beginners/">
         </link>
-        <updated>2020-11-26T07:45:46.000Z</updated>
+        <updated>2020-11-25T03:45:46.000Z</updated>
         <content type="html"><![CDATA[<h2 id="supported-platform">Supported Platform</h2>
 <ul>
 <li>
@@ -41,7 +41,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="download-hadoop">Download Hadoop</h2>
+<h2 id="download-hadoop-version-277">Download Hadoop (Version 2.7.7)</h2>
 <ul>
 <li>
 <p>Download Hadoop source package: <code>wget https://archive.apache.org/dist/hadoop/core/hadoop-2.7.7/hadoop-2.7.7.tar.gz</code></p>
@@ -54,9 +54,7 @@
 </li>
 </ul>
 <h2 id="hadoop-cluster-configuration">Hadoop Cluster Configuration</h2>
-<ol>
-<li>Update <code>~/.bashrc</code> by adding the following lines:</li>
-</ol>
+<p>Step 1. Update <code>~/.bashrc</code> by adding the following lines:</p>
 <pre><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre
 export PATH=$PATH:$JAVA_HOME/bin
 export HADOOP_HOME=$HOME/hadoop-2.7.7
@@ -68,33 +66,18 @@ export YARN_HOME=$HOME/hadoop-2.7.7
 export PATH=$PATH:$HOME/hadoop-2.7.7/bin
 export HADOOP_CLASSPATH=/usr/lib/jvm/java-openjdk/lib/tools.jar
 </code></pre>
+<hr>
 <p>Also update <code>JAVA_HOME</code> path in the file: <code>$HOME/hadoop-2.7.7/etc/hadoop/hadoop-env.sh</code> as follows.</p>
 <pre><code>export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.272.b10-1.el7_9.x86_64/jre
 export PATH=$PATH:$JAVA_HOME/bin
 </code></pre>
-<ol start="2">
-<li>
-<p>Run <code>source ~/.bashrc</code> command</p>
-</li>
-<li>
-<p>Copy the master node's ssh key to slave's authorized keys.</p>
-</li>
-</ol>
+<p>Step 2. Run <code>source ~/.bashrc</code> command</p>
+<p>Step 3. Copy the master node's ssh key to slave's authorized keys.</p>
 <p><code>ssh-copy-id -i $HOME/.ssh/id_rsa.pub username@slave</code></p>
-<ol start="4">
-<li>
-<p>On the <strong>master</strong> node, create a file named <code>masters</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop</code></p>
-</li>
-<li>
-<p>Add master node's public IP address to the file just created.</p>
-</li>
-<li>
-<p>Add the IPs of all slaves to the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/slaves</code> on the <strong>master</strong> node only.</p>
-</li>
-<li>
-<p>Update <code>$HOME/hadoop-2.7.7/etc/hadoop/core-site.xml</code> on <strong>all</strong> nodes in the cluster with the following lines:</p>
-</li>
-</ol>
+<p>Step 4. On the <strong>master</strong> node, create a file named <code>masters</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop</code></p>
+<p>Step 5. Add master node's public IP address to the file just created.</p>
+<p>Step 6. Add the IPs of all slaves to the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/slaves</code> on the <strong>master</strong> node only.</p>
+<p>Step 7. Update <code>$HOME/hadoop-2.7.7/etc/hadoop/core-site.xml</code> on <strong>all</strong> nodes in the cluster with the following lines:</p>
 <pre><code class="language-xml">&lt;configuration&gt;
 	&lt;property&gt;
 		&lt;name&gt;fs.default.name&lt;/name&gt;
@@ -102,9 +85,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 	&lt;/property&gt;
 &lt;/configuration&gt;
 </code></pre>
-<ol start="8">
-<li>Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the master node as follows:</li>
-</ol>
+<p>Step 8. Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the master node as follows:</p>
 <pre><code class="language-xml">&lt;configuration&gt;
 	&lt;property&gt;
 		&lt;name&gt;dfs.replication&lt;/name&gt;
@@ -116,17 +97,15 @@ export PATH=$PATH:$JAVA_HOME/bin
 	&lt;/property&gt;
 	&lt;property&gt;
 		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
-		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/namenode&lt;/value&gt;
+		&lt;value&gt;&lt;hadoop-path&gt;/namenode&lt;/value&gt;
 	&lt;/property&gt;
 	&lt;property&gt;
 		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
-		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/datanode&lt;/value&gt;
+		&lt;value&gt;&lt;hadoop-path&gt;/hadoop-2.7.7/datanode&lt;/value&gt;
 	&lt;/property&gt;
 &lt;/configuration&gt;
 </code></pre>
-<ol start="9">
-<li>Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the slave node as follows:</li>
-</ol>
+<p>Step 9. Update the file at path: <code>$HOME/hadoop-2.7.7/etc/hadoop/hdfs-site.xml</code> on the slave node as follows:</p>
 <pre><code class="language-xml">&lt;configuration&gt;
 	&lt;property&gt;
 		&lt;name&gt;dfs.replication&lt;/name&gt;
@@ -138,13 +117,11 @@ export PATH=$PATH:$JAVA_HOME/bin
 	&lt;/property&gt;
 	&lt;property&gt;
 		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
-		&lt;value&gt;&lt;HADOOP_INSTAL_PATH&gt;/datanode&lt;/value&gt;
+		&lt;value&gt;&lt;hadoop_path&gt;/datanode&lt;/value&gt;
 	&lt;/property&gt;
 &lt;/configuration&gt;
 </code></pre>
-<ol start="10">
-<li>For all nodes in the cluster, create a new file named <code>mapred-site.xml</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop/</code> and add the following lines to the file.</li>
-</ol>
+<p>Step 10. For all nodes in the cluster, create a new file named <code>mapred-site.xml</code> under path: <code>$HOME/hadoop-2.7.7/etc/hadoop/</code> and add the following lines to the file.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
 &lt;!--
@@ -166,9 +143,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 	&lt;/property&gt;
 &lt;/configuration&gt;
 </code></pre>
-<ol start="11">
-<li>For all nodes in the cluster, update the file: <code>$HOME/hadoop-2.7.7/etc/hadoop/yarn-site.xml</code> with the following lines.</li>
-</ol>
+<p>Step 11. For all nodes in the cluster, update the file: <code>$HOME/hadoop-2.7.7/etc/hadoop/yarn-site.xml</code> with the following lines.</p>
 <pre><code class="language-xml">&lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
     &lt;value&gt;172.22.94.103:8032&lt;/value&gt;
@@ -198,13 +173,10 @@ export PATH=$PATH:$JAVA_HOME/bin
     &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
 &lt;/property&gt;
 </code></pre>
-<ol start="12">
-<li>On the <strong>master</strong> master (only), format the namenode using the command: <code>hadoop namenode -format</code></li>
-</ol>
+<p>Step 12. On the <strong>master</strong> master (only), format the namenode using the command: <code>hadoop namenode -format</code></p>
+<p>Step 13. To start hadoop cluster, run <code>./sbin/start-dfs.sh</code> and <code>./sbin/start-yarn.sh</code> on the <strong>master</strong> node only.</p>
 <h2 id="quick-start-example">Quick Start Example</h2>
-<ol>
-<li>Create a file named: <code>WordCount.java</code> and copy the following code block to this new file. WordCount is a simple application that counts the number of occurrences of each word in a given input set.</li>
-</ol>
+<p>Step 1. Create a file named: <code>WordCount.java</code> and copy the following code block to this new file. WordCount is a simple application that counts the number of occurrences of each word in a given input set.</p>
 <pre><code class="language-java">import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -267,25 +239,19 @@ public class WordCount {
   }
 }
 </code></pre>
-<ol start="2">
-<li>Compile WordCount.java and create a jar:</li>
-</ol>
+<p>Step 2. Compile WordCount.java and create a jar:</p>
 <pre><code>bin/hadoop com.sun.tools.javac.Main WordCount.java
 
 jar cf wc.jar WordCount*.class
 </code></pre>
-<ol start="3">
-<li>Add files: <code>file01</code> and <code>file02</code> under <strong>local</strong> directory: <code>wc-input</code>. Sample text-files as input:</li>
-</ol>
+<p>Step 3. Add files: <code>file01</code> and <code>file02</code> under <strong>local</strong> directory: <code>wc-input</code>. Sample text-files as input:</p>
 <pre><code>hadoop fs -mkdir -p /wc/input
 hadoop fs -put wc-input/* /wc/input
 
 hadoop fs -ls /wc/input
 </code></pre>
-<ol start="4">
-<li>Run applications using MapReduce of Hadoop:</li>
-</ol>
-<pre><code>hadoop jar wc.jar wordcount /wc/input /wc/output
+<p>Step 4. Run applications using MapReduce of Hadoop:</p>
+<pre><code>hadoop jar wc.jar WordCount /wc/input /wc/output
 hadoop fs -ls /wc/output
 hadoop fs -get /wc/output/part-r-00000 wc-output/output.txt
 </code></pre>
